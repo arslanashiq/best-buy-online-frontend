@@ -1,0 +1,118 @@
+.rulepage[data-v-d0c1a326] {
+  min-height: 100vh;
+  background: #fff;
+  padding: 0 0 6.666667vw;
+}
+
+[data-v-d0c1a326] .navboxi {
+  padding-top: 2.666667vw;
+  background: none;
+}
+.van-nav-bar__content {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  height: 12.266667vw;
+}
+
+[data-v-d0c1a326] .navboxi .van-nav-bar__content .van-nav-bar__left i {
+  color: #000;
+  font-size: 4.666667vw;
+}
+.van-icon-arrow-left:before {
+  content: "\e668";
+}
+.van-icon,
+.van-icon:before {
+  display: inline-block;
+}
+.van-nav-bar__left,
+.van-nav-bar__right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  padding: 0 4.266667vw;
+  font-size: 3.733333vw;
+  cursor: pointer;
+}
+
+[data-v-d0c1a326] .navboxi .van-nav-bar__content .van-nav-bar__title {
+  color: #000;
+  font-size: 4.533333vw;
+  font-weight: 600;
+}
+
+.rulepage .section-box[data-v-d0c1a326] {
+  padding: 0 4vw;
+}
+.rulepage .section-box .listbox[data-v-d0c1a326] {
+  border-radius: 2.133333vw;
+  border: 0.266667vw solid #e5e5e5;
+  padding: 3.066667vw 3.333333vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 2.666667vw;
+}
+
+.rulepage .section-box .listbox .right[data-v-d0c1a326] {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+#app .flex,
+#app .flex-start {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.rulepage .section-box .listbox .right .typeti p[data-v-d0c1a326] {
+  font-size: 4.266667vw;
+  font-weight: 600;
+  color: #000;
+}
+.rulepage .section-box .listbox .right .typeti span[data-v-d0c1a326] {
+  font-size: 4.266667vw;
+  font-weight: 600;
+  color: #ff8400;
+}
+#app .flex,
+#app .flex-start {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.rulepage .section-box .listbox .right .timetype p[data-v-d0c1a326] {
+  font-size: 3.466667vw;
+  color: #000;
+  font-weight: 500;
+}
+
+#app .flex,
+#app .flex-start {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}

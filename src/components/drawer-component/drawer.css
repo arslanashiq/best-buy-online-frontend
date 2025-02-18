@@ -1,0 +1,81 @@
+.popupLeftDrawer {
+  width: 260px;
+  height: 100%;
+  position: fixed;
+  bottom: 0px;
+  top: 0px;
+  left: 0;
+  background-color: #fff;
+  overflow-x: hidden;
+  transition: all 0.3s ease-in-out;
+  z-index: 9999;
+  transform: translateX(-100%);
+}
+
+.imgTop {
+  text-align: center;
+  background-color: #000b26;
+  display: flex;
+  justify-content: center;
+}
+.imgTop img {
+  width: 180px;
+  height: 35px;
+}
+
+.popupLeftContent {
+  background-image: url(https://bestbuyonlines.com/css/h/header_bg.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  color: #fff;
+}
+.itemsCenter {
+  display: flex;
+}
+.itemsCenterImage {
+    margin: 10px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+    border: 1px solid #fff;
+}
+
+.itemsCenterText {
+    padding: 10px;
+    font-size: 12px;
+    line-height: 1.8;
+}
+.rightBox {
+    font-size: 13px;
+    font-weight: 600;
+    display: flex
+;
+    align-items: center;
+}
+
+.contentList {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.contentListItem {
+    cursor: pointer;
+  display: flex;
+  box-sizing: border-box;
+  padding: 10px 15px;
+  color: #303133;
+  align-items: center;
+  border-bottom: 0.5px solid rgb(214, 215, 217, 0.5);
+}
+
+.menuImg {
+  width: 18px;
+  height: 18px;
+  margin-right: 5px;
+}
+
+.menuTitle {
+  font-size: 10px;
+  line-height: 1;
+}

@@ -1,0 +1,48 @@
+
+.more_option {
+    padding: 0 16px;
+}
+
+/* new */
+.contenttBox {
+    background: #fff;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.contentt {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    flex-grow: 0;
+    flex-basis: auto;
+    align-items: stretch;
+}
+
+.contentt_warp {
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    padding: 10px 15px;
+    font-size: 15px;
+    color: #303133;
+    align-items: center;
+}
+
+.contentt_warp .name {
+    font-size: 15px;
+    line-height: 22px;
+    color: #303133;
+    flex: 1;
+}
+
+.contentt_warp .avatar {
+    width: 25px;
+    height: 25px;
+    margin-left: 6px;
+}
+
+.contentt_warp .value {
+    font-size: 13px;
+    color: #606266;
+}

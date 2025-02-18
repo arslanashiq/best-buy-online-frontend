@@ -1,0 +1,161 @@
+.app-wrapper {
+  background-image: url(https://bestbuyonlines.com/css/profile/static_2022/image_24/BACKGROUND.png);
+}
+
+/* new */
+.firstBox {
+  margin: 60px 15px 0 15px;
+}
+
+.infoBox {
+  margin: 60px 15px 0 15px;
+  border-radius: 10px;
+  background-color: #fff;
+  color: #000;
+  box-shadow: 2px 1px 11px #5b89fe;
+  text-align: center;
+  padding-bottom: 12px;
+}
+
+.infoBoxImg {
+  margin-top: -25px;
+  border-radius: 100px;
+  height: 50px;
+  width: 50px;
+  border: 1px solid #fff;
+}
+
+.contentInfoName {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.contentInfoDetail {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 600;
+  color: rgb(30, 115, 250);
+}
+
+.contentInfoMoney {
+  display: flex;
+  padding: 10px;
+}
+
+.contentInfoItem {
+  width: 50%;
+  font-size: 12px;
+  font-weight: 600;
+  color: #000;
+}
+
+.contentInfoItem .value {
+  font-size: 12px;
+  color: #000;
+  line-height: 1.6;
+}
+
+.contentInfoItem .name {
+  font-size: 11px;
+  color: #4c4c4c;
+  font-weight: 400;
+}
+
+.centerFirstTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  padding: 0 12px;
+}
+
+.lineProgress {
+  align-items: stretch;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  overflow: hidden;
+  border-radius: 100px;
+  margin: 0 12px;
+}
+
+.progress__background {
+  background-color: #ececec;
+  border-radius: 100px;
+  flex: 1;
+  height: 12px;
+}
+
+.progress__line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  color: #fff;
+  border-radius: 100px;
+  transition: width 0.5s ease;
+  justify-content: flex-end;
+  width: 0px;
+  background-color: rgb(31, 116, 251);
+  height: 12px;
+}
+
+.progress__line_text {
+  color: #fff;
+  font-size: 11px;
+  text-align: right;
+  /*padding-right: 5px;*/
+  line-height: 12px;
+}
+
+.menuBox {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.menuBoxItem {
+  font-size: 12px;
+  width: 33.33%;
+  text-align: center;
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.menuBoxItem .classBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.menuBoxItem .menuBoxImage {
+  border-radius: 50px;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 2px 1px 11px #5b89fe;
+  width: 50px;
+  height: 50px;
+}
+
+.menuBoxFont {
+  font-size: 12px;
+  font-weight: bold;
+  color: #d4d4d4;
+  margin-top: 4px;
+}
+
+.bottomText {
+  color: #fff;
+  white-space: nowrap;
+  text-align: center;
+  font-size: 12px;
+  margin-top: 20px;
+}

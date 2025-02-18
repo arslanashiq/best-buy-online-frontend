@@ -1,0 +1,74 @@
+.backTop {
+  height: 60px;
+  padding: 15px;
+  border-radius: 10px;
+  background-size: cover;
+  color: #d4d4d4;
+}
+.DepositAmount {
+  font-weight: 600;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.Withdrawal {
+  font-size: 11px;
+  margin: 15px 0;
+}
+
+.deposit {
+  background: #fff;
+  align-items: center;
+  border-radius: 10px;
+  margin: 5px;
+}
+.depositText {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  padding: 10px;
+  color: black;
+}
+
+.input_box {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  flex: 1;
+  padding: 0 10px;
+  font-weight: bold;
+
+  color: rgb(118, 118, 118);
+}
+
+.recharge_btn {
+  margin-top: 20px;
+}
+.bottomButton {
+  text-align: center;
+  margin: 10px 0;
+  background: #1e73fa;
+  color: #fff;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 10px;
+  height: 40px;
+  line-height: 20px;
+}
+
+.btn_submit {
+  display: block;
+  width: 100%;
+  border-radius: 8px;
+  padding: 12px 15px;
+  border: 0;
+  outline: none;
+  box-shadow: 0 0.3rem 0.6rem rgba(0, 0, 0, 0.1) !important;
+  font-size: 16px;
+  /* text-transform: uppercase; */
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  text-align: center;
+  color: #fff;
+  line-height: 24px;
+}

@@ -1,0 +1,64 @@
+.footer_item_btn {
+  flex-direction: column;
+  font-size: 12px;
+}
+
+/* 底部导航栏 */
+.footer-wrap {
+  position: relative;
+  width: auto;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  height: 71px;
+  z-index: 999;
+  background-color: #000;
+  border-top: 1px solid #fff;
+}
+
+.footer .content {
+  display: flex;
+  height: 100%;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.footer_item {
+  flex: 0 0 auto;
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+  padding-top: 30px;
+}
+
+.footer_item_btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(125, 126, 128);
+  width: 33.333333vw;
+  height: 100%;
+  text-decoration: none;
+}
+
+.footer_item_btn.active {
+  color: #fff;
+}
+
+.footer_item_btn img {
+  width: 30px;
+  height: 30px;
+  display: block;
+}
+
+.footer_item_btn.active img {
+  width: 50px;
+  height: 50px;
+  margin-top: -40px;
+}
