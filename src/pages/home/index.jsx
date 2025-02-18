@@ -24,7 +24,7 @@ import BackdropComponent from "../../components/BackdropComponent";
 
 function HomePage() {
   const navigate = useNavigate();
-  const [openModal, setOpenModal] = useState(false);
+  const [openModal, setOpenModal] = useState(true);
   const [openBackdrop, setOpenBackdrop] = useState(false);
 
   const handleCloseModal = () => {

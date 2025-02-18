@@ -9,6 +9,7 @@ import {
   MemberPage,
   PersonalPage,
   ProfilePage,
+  RegisterPage,
   RevenuePage,
   RollPage,
   StatementPage,
@@ -23,6 +24,7 @@ function Router() {
     <Routes>
       <Route path="/" element={<RouteGuard />}>
         <Route path="login" element={<LoginPage />} />
+        <Route path="register" element={<RegisterPage />} />
         <Route path="home" element={<HomePage />} />
         <Route path="roll" element={<RollPage />} />
         <Route path="history" element={<HistoryPage />} />
