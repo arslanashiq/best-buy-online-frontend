@@ -25,6 +25,9 @@ function BackdropComponent({ openBackdrop, setOpenBackdrop }) {
             variant="contained"
             className="w-100 fw-bold text-capitalize"
             sx={{ borderRadius: 2, color: "black", backgroundColor: "white" }}
+            onClick={() => {
+              window.open("https://t.me/ShahadCh767", "blank");
+            }}
           >
             Customer Service 1
           </Button>
@@ -32,8 +35,11 @@ function BackdropComponent({ openBackdrop, setOpenBackdrop }) {
             variant="contained"
             className="w-100 fw-bold text-capitalize"
             sx={{ borderRadius: 2, color: "black", backgroundColor: "white" }}
+            onClick={() => {
+              window.open("https://t.me/ShahadCh767", "blank");
+            }}
           >
-            Customer Service 1
+            Customer Service 2
           </Button>
           <Button
             onClick={() => {
