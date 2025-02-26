@@ -35,7 +35,9 @@ function RollPage() {
 
   const selectedPrize = useMemo(() => {
     const randomNumber = Math.floor(Math.random() * USER_PRIZE_LIST.length);
-    return USER_PRIZE_LIST[1];
+    const commission = Math.floor(Math.random() * (50 - 5 + 1)) + 5;
+
+    return { ...USER_PRIZE_LIST[randomNumber], commission };
   }, [USER_PRIZE_LIST, userData?.remaining_tasks]);
 
   const handleCloseModal = () => {
@@ -84,7 +86,7 @@ function RollPage() {
     <div className="container-fluid">
       <Dialog
         open={openModal}
-        onClose={handleCloseModal}
+        // onClose={handleCloseModal}
         maxWidth="md"
         fullWidth
       >
