@@ -77,6 +77,15 @@ function RollPage() {
     });
   };
 
+  const handleDisableButton = () => {
+    if (userData?.is_active === false) {
+      return true;
+    }
+    if (userData?.remaining_tasks === 0) {
+      return true;
+    }
+    return false;
+  };
   useEffect(() => {
     if (!userData) {
       fetchUserDetails();
@@ -166,7 +175,7 @@ function RollPage() {
             <div className="col-6 col-md-5 col-lg-3">
               <button
                 className="spin-button"
-                disabled={userData?.remaining_tasks === 0}
+                disabled={() => handleDisableButton()}
                 onClick={spinImages}
               >
                 Start Grab
