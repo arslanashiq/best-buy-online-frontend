@@ -8,6 +8,11 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { login_user } from "../../DAL/auth";
+//styles
+import "react-phone-number-input/style.css";
+
+import PhoneInput from "react-phone-number-input";
+import { enqueueSnackbar } from "notistack";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -28,12 +33,17 @@ function LoginPage() {
   const handleSubmitForm = async (e) => {
     e.preventDefault();
 
-    const response = await login_user(inputs);
-    if (response?.data?.user) {
-      localStorage.setItem("token", response?.data?.token);
-      localStorage.setItem("user", JSON.stringify(response?.data?.user));
-      navigate("/home");
-    }
+    login_user(inputs)
+      .then((response) => {
+        if (response?.data?.user) {
+          localStorage.setItem("token", response?.data?.token);
+          localStorage.setItem("user", JSON.stringify(response?.data?.user));
+          navigate("/home");
+        }
+      })
+      .catch((error) => {
+        enqueueSnackbar(error.message, { variant: "error" });
+      });
   };
 
   useEffect(() => {
@@ -82,14 +92,18 @@ function LoginPage() {
 
                     <div className="row">
                       <div className="col-12 mt-2">
-                        <TextField
-                          className="w-100"
-                          variant="standard"
+                        <PhoneInput
                           placeholder="Phone Number"
-                          name="phone_number"
-                          autoComplete="off"
                           value={inputs.phone_number}
-                          onChange={handleChangeInput}
+                          onChange={(value) => {
+                            handleChangeInput({
+                              target: {
+                                value,
+                                name: "phone_number",
+                              },
+                            });
+                          }}
+                          name="phone_number"
                         />
                       </div>
                       <div className="col-12 mt-4">

@@ -1,5 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
-
+import { SnackbarProvider } from "notistack";
 //components
 
 import Router from "./router";
@@ -10,11 +10,19 @@ import "./App.css";
 function App() {
   return (
     <>
-      <AppContext>
-        <BrowserRouter>
-          <Router />
-        </BrowserRouter>
-      </AppContext>
+      <SnackbarProvider
+      
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
+        }}
+      >
+        <AppContext>
+          <BrowserRouter>
+            <Router />
+          </BrowserRouter>
+        </AppContext>
+      </SnackbarProvider>
     </>
   );
 }

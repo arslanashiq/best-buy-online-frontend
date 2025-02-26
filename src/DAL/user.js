@@ -13,6 +13,16 @@ export const detail_user = async (id) => {
 
   return invokeApi(reqObj);
 };
+export const add_user = async (payload) => {
+  const reqObj = {
+    url: `/user`,
+    data: payload,
+    headers: {},
+    method: "POST",
+  };
+
+  return invokeApi(reqObj);
+};
 
 export const update_task_assigned_date = async (id) => {
   const reqObj = {
