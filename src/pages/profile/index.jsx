@@ -1,14 +1,18 @@
 /* eslint-disable react/no-unknown-property */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Toolbar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 //components
 import Topbar from "../../components/Topbar";
 import BackgroundImage from "../../components/BackgroundImage";
 //styles
-import "./profile.css";
+import { UseAppContext } from "../../context/AppContext";
 import BackdropComponent from "../../components/BackdropComponent";
+//styles
+import "./profile.css";
+
 function ProfilePage() {
+  const { userData, fetchUserDetails } = UseAppContext();
   const navigate = useNavigate();
 
   const [openBackdrop, setOpenBackdrop] = useState(false);
@@ -16,6 +20,13 @@ function ProfilePage() {
   const handleNavigate = (link) => {
     navigate(link);
   };
+
+  useEffect(() => {
+    if (!userData) {
+      fetchUserDetails();
+    }
+  }, []);
+
   return (
     <>
       <BackgroundImage>
@@ -36,7 +47,7 @@ function ProfilePage() {
             />
             <div className="contentInfo" bis_skin_checked={1}>
               <div className="contentInfoName" bis_skin_checked={1}>
-                3462866024
+                {userData?.phone_number}
               </div>
             </div>
             <input type="hidden" name="task" defaultValue={25} />
@@ -47,7 +58,7 @@ function ProfilePage() {
                 bis_skin_checked={1}
               >
                 <div className="value" bis_skin_checked={1}>
-                  25
+                  {userData?.remaining_tasks}
                 </div>
                 <div className="name" bis_skin_checked={1}>
                   Today Orders
@@ -55,7 +66,7 @@ function ProfilePage() {
               </div>
               <div className="contentInfoItem" bis_skin_checked={1}>
                 <div className="value" bis_skin_checked={1}>
-                  $20,324.00
+                  ${userData?.balance_amount}
                 </div>
                 <div className="name" bis_skin_checked={1}>
                   Account Balance

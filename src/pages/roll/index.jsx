@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Footer from "../../components/footer/Footer";
 import Topbar from "../../components/Topbar";
 
@@ -15,8 +15,13 @@ import {
   Typography,
 } from "@mui/material";
 import { Close } from "@mui/icons-material";
+import { UseAppContext } from "../../context/AppContext";
+import { update_balance, update_remaining_task_count } from "../../DAL/user";
+import { USER_PRIZE_LIST } from "./utilities/constant";
 
 function RollPage() {
+  const { userData, fetchUserDetails, updateUserDetails } = UseAppContext();
+
   const slotsList = ["slot_1", "slot_2", "slot_3"];
   const imagesList = [
     "https://bestbuyonlines.com/public/NorthernStar/dist/grab/20240623_222816.png",
@@ -28,11 +33,19 @@ function RollPage() {
   const [openModal, setOpenModal] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
 
+  const selectedPrize = useMemo(() => {
+    const randomNumber = Math.floor(Math.random() * USER_PRIZE_LIST.length);
+    return USER_PRIZE_LIST[1];
+  }, [USER_PRIZE_LIST, userData?.remaining_tasks]);
+
   const handleCloseModal = () => {
     setOpenModal(false);
   };
 
   function spinImages() {
+    update_remaining_task_count(userData?._id).then((response) => {
+      updateUserDetails(response?.data);
+    });
     slotsList.forEach((slot) => {
       document.querySelector(`.${slot}`).classList.add("spin");
       setTimeout(() => {
@@ -49,63 +62,76 @@ function RollPage() {
       }, 5000);
     });
   }
+  const handleClickProcessing = async () => {
+    setIsProcessing(true);
+    update_balance(userData?._id, {
+      balance_amount:
+        Number(userData?.balance_amount || 0) +
+        Number(selectedPrize.commission),
+    }).then((response) => {
+      setIsProcessing(false);
+      handleCloseModal();
+      updateUserDetails(response?.data);
+    });
+  };
+
+  useEffect(() => {
+    if (!userData) {
+      fetchUserDetails();
+    }
+  }, []);
   return (
     <div className="container-fluid">
-      <div className="row">
-        <Dialog
-          open={openModal}
-          onClose={handleCloseModal}
-          maxWidth="md"
-          fullWidth
-        >
-          <Stack p={1} sx={{ backgroundColor: "#a5e296" }}>
-            <div className="modal-title text-center fw-bold">
-              Order Grabing Success
-            </div>
-            <Stack direction="row" justifyContent="center" alignItems="center">
-              <Box>
-                <img
-                  style={{ width: "100%", height: 250, objectFit: "contain" }}
-                  src="https://bestbuyonlines.com/public/upload/product/1737556732YcS.png"
-                  alt=""
-                />
-              </Box>
-              <Stack spacing={1}>
-                <div>
-                  <h2>CD 70</h2>
-                  <p>Price: $630.00</p>
-                  <p>Quantity: 1X</p>
-                </div>
-                <div
-                  className="profit_amount "
-                  style={{
-                    borderRadius: 5,
-                    border: "2px solid red",
-                    padding: 5,
-                  }}
-                >
-                  <div>Total Commmission</div>
-                  <div>$2.00</div>
-                </div>
-              </Stack>
-            </Stack>
-            <Stack className="w-100" direction="row" justifyContent="center">
-              <Button
-                variant="contained"
-                sx={{ backgroundColor: "white", color: "black" }}
-                className="text-capitalize fw-bold"
-                onClick={() => {
-                  setIsProcessing(true);
-                  setTimeout(() => {
-                    handleCloseModal();
-                  }, 2000);
+      <Dialog
+        open={openModal}
+        onClose={handleCloseModal}
+        maxWidth="md"
+        fullWidth
+      >
+        <Stack p={1} sx={{ backgroundColor: "#a5e296" }}>
+          <div className="modal-title text-center fw-bold">
+            Order Grabing Success
+          </div>
+          <Stack direction="row" justifyContent="center" alignItems="center">
+            <Box>
+              <img
+                style={{ width: "100%", height: 250, objectFit: "contain" }}
+                src={selectedPrize.image}
+                alt=""
+              />
+            </Box>
+            <Stack spacing={1}>
+              <div>
+                <h2>{selectedPrize?.name}</h2>
+                <p>Price: ${selectedPrize.price}</p>
+                <p>Quantity: {selectedPrize.quantity}X</p>
+              </div>
+              <div
+                className="profit_amount "
+                style={{
+                  borderRadius: 5,
+                  border: "2px solid red",
+                  padding: 5,
                 }}
               >
-                {isProcessing ? "processing..." : "Received Now"}
-              </Button>
+                <div>Total Commmission</div>
+                <div>${selectedPrize.commission}</div>
+              </div>
             </Stack>
           </Stack>
-        </Dialog>
+          <Stack className="w-100" direction="row" justifyContent="center">
+            <Button
+              variant="contained"
+              sx={{ backgroundColor: "white", color: "black" }}
+              className="text-capitalize fw-bold"
+              onClick={handleClickProcessing}
+            >
+              {isProcessing ? "processing..." : "Received Now"}
+            </Button>
+          </Stack>
+        </Stack>
+      </Dialog>
+      <div className="row">
         <Topbar />
         <div className="scroll-container">
           <img
@@ -136,7 +162,11 @@ function RollPage() {
           {/* <div className="w-100 d-flex justify-content-center"> */}
           <div className="row justify-content-center">
             <div className="col-6 col-md-5 col-lg-3">
-              <button className="spin-button" onClick={spinImages}>
+              <button
+                className="spin-button"
+                disabled={userData?.remaining_tasks === 0}
+                onClick={spinImages}
+              >
                 Start Grab
               </button>
             </div>
@@ -153,7 +183,7 @@ function RollPage() {
                 style={{ width: "25px", height: "25px" }}
               />
               <div>Today tasks</div>
-              <p>21</p>
+              <p>{userData?.remaining_tasks}</p>
             </div>
             <div className="centerItem">
               <img
@@ -162,7 +192,7 @@ function RollPage() {
                 style={{ width: "25px", height: "25px" }}
               />
               <div>Account Balance</div>
-              <p>$20,322.00</p>
+              <p>${userData?.balance_amount}</p>
             </div>
           </div>
         </div>

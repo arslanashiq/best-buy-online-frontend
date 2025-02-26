@@ -5,13 +5,22 @@ import { Box } from "@mui/material";
 //styles
 import "./drawer.css";
 import { useNavigate } from "react-router-dom";
+import { UseAppContext } from "../../context/AppContext";
+import { useEffect } from "react";
 
 export default function DrawerComponent({ open, toggleDrawer }) {
+  const { userData, fetchUserDetails } = UseAppContext();
   const navigate = useNavigate();
   const handleNavigate = (link) => {
     navigate(link);
     toggleDrawer();
   };
+
+  useEffect(() => {
+    if (!userData) {
+      fetchUserDetails();
+    }
+  }, []);
   return (
     <Drawer open={open} onClose={() => toggleDrawer()}>
       <Box sx={{ width: 260 }}>
@@ -43,7 +52,7 @@ export default function DrawerComponent({ open, toggleDrawer }) {
                   />
                 </div>
                 <div className="text">Account Balance</div>
-                <div className="text">$20,324.00</div>
+                <div className="text">${userData?.balance_amount}</div>
               </div>
             </div>
             {/* invite */}
