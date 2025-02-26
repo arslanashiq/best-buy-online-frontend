@@ -12,10 +12,9 @@ export const login_user = async (payload) => {
   return invokeApi(reqObj);
 };
 
-export const logout_user = async (payload) => {
+export const logout_user = async () => {
   const reqObj = {
     url: "/auth/logout",
-    data: payload,
     headers: {
       "x-sh-auth": localStorage.getItem("token"),
     },

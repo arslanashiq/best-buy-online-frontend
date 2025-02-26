@@ -10,6 +10,7 @@ import { UseAppContext } from "../../context/AppContext";
 import BackdropComponent from "../../components/BackdropComponent";
 //styles
 import "./profile.css";
+import { logout_user } from "../../DAL/auth";
 
 function ProfilePage() {
   const { userData, fetchUserDetails } = UseAppContext();
@@ -19,6 +20,12 @@ function ProfilePage() {
 
   const handleNavigate = (link) => {
     navigate(link);
+  };
+
+  const handleLogout = async () => {
+    handleNavigate("/login");
+    localStorage.clear();
+    logout_user();
   };
 
   useEffect(() => {
@@ -173,7 +180,7 @@ function ProfilePage() {
             </div>
             <div
               className="menuBoxItem"
-              onClick={() => handleNavigate("/login")}
+              onClick={handleLogout}
               bis_skin_checked={1}
             >
               <div className="classBox" bis_skin_checked={1}>

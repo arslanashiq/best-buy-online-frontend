@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BackgroundImage from "../../components/BackgroundImage";
 import { useNavigate } from "react-router-dom";
 import { Checkbox, IconButton, InputAdornment, TextField } from "@mui/material";
@@ -35,6 +35,16 @@ function LoginPage() {
       navigate("/home");
     }
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/home", {
+        replace: true,
+      });
+    }
+  }, []);
+
   return (
     <BackgroundImage>
       <div className="container-fluid">
