@@ -63,3 +63,17 @@ export const update_balance = async (id, payload) => {
 
   return invokeApi(reqObj);
 };
+
+export const update_bank = async (id, payload) => {
+  const reqObj = {
+    url: `/user/${id}/update_bank`,
+    data: payload,
+    headers: {
+      "x-sh-auth": localStorage.getItem("token"),
+    },
+    method: "PUT",
+    params: null,
+  };
+
+  return invokeApi(reqObj);
+};

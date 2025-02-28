@@ -4,7 +4,48 @@ import TopbarWithWhiteBackground from "../../components/TopbarWithWhiteBackgroun
 
 //style
 import "./add-bank.css";
+import { useEffect, useState } from "react";
+import { update_bank } from "../../DAL/user";
+import { UseAppContext } from "../../context/AppContext";
+import { useNavigate } from "react-router-dom";
+import { enqueueSnackbar } from "notistack";
 function AddBankPage() {
+  const navigate = useNavigate();
+  const { userData, fetchUserDetails, updateUserDetails } = UseAppContext();
+  const [inputs, setInputs] = useState({
+    bank_name: "",
+    full_name: "",
+    account_number: "",
+  });
+
+  const handleChangeInput = (e) => {
+    const { name, value } = e.target;
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    update_bank(userData?._id, { bank_info: inputs })
+      .then((response) => {
+        if (response.code === 200) {
+          navigate("/home");
+          updateUserDetails({ bank_info: inputs });
+        }
+      })
+      .catch((error) => {
+        enqueueSnackbar(error?.message, { variant: "error" });
+      });
+  };
+
+  useEffect(() => {
+    if (!userData) {
+      fetchUserDetails();
+    }
+  }, []);
+
   return (
     <Box sx={{ backgroundColor: "#E1E2E2" }}>
       <TopbarWithWhiteBackground title="Wallet Bind" />
@@ -14,12 +55,7 @@ function AddBankPage() {
         }}
       />
       {/* 标签栏 */}
-      <form method="post">
-        <input
-          type="hidden"
-          name="_token"
-          defaultValue="pb38dYNAf8zikybrf9u43YmJEOW8dwVY2GbJ5WFf"
-        />{" "}
+      <form onSubmit={handleSubmit}>
         <div className="page_box">
           {/* 表单 */}
           <div className="bank_form" style={{ display: "block" }}>
@@ -27,7 +63,12 @@ function AddBankPage() {
               <div style={{ height: 1, background: "rgb(222 222 222)" }} />
               <div className="itemInput">
                 <span>Select Bank</span>{" "}
-                <select name="gateway_method" className="pxn_input">
+                <select
+                  onChange={handleChangeInput}
+                  name="bank_name"
+                  className="pxn_input"
+                  value={inputs.bank_name}
+                >
                   <option>Select one</option>
                   <option value="USDT">USDT</option>
                   <option value="MCB Bank">MCB Bank</option>
@@ -75,11 +116,12 @@ function AddBankPage() {
                 <span>Full Name</span>
                 <input
                   type="text"
-                  defaultValue=""
+                  value={inputs.full_name}
                   placeholder="Please enter your Name"
-                  name="name"
+                  name="full_name"
                   autoComplete="off"
                   className="pxn_input"
+                  onChange={handleChangeInput}
                 />
               </div>
               <div style={{ height: 1, background: "rgb(222 222 222)" }} />
@@ -87,51 +129,13 @@ function AddBankPage() {
                 <span>Account Number</span>
                 <input
                   type="text"
-                  defaultValue=""
+                  value={inputs.account_number}
                   placeholder="Please enter details"
-                  name="gateway_number"
+                  name="account_number"
                   autoComplete="off"
                   className="pxn_input"
+                  onChange={handleChangeInput}
                 />
-              </div>
-            </div>
-          </div>
-          <div className="usdt_form" style={{ display: "none" }}>
-            <div className="centerCon">
-              <div className="itemInput">
-                <span>Full Name</span>
-                <input
-                  type="text"
-                  defaultValue="asfsdfsdfg"
-                  placeholder="Please enter your Full Name"
-                  name="full_name"
-                  autoComplete="off"
-                  className="pxn_input"
-                />
-              </div>
-              <div style={{ height: 1, background: "rgb(222 222 222)" }} />
-              <div className="itemInput">
-                <span>Wallet Address</span>
-                <input
-                  type="text"
-                  defaultValue="wqeqwfsdfsdf"
-                  placeholder="Please enter the Wallet Address"
-                  name="wallet_address"
-                  autoComplete="off"
-                  className="pxn_input"
-                />
-              </div>
-              <div style={{ height: 1, background: "rgb(222 222 222)" }} />
-              <div className="itemInput">
-                <span>Wallet Network</span>
-                <span
-                  style={{ lineHeight: 26, color: "#84868a" }}
-                  className="network_name"
-                  data-value="TRC"
-                >
-                  TRC
-                </span>
-                {/*<input type="text" value="" name="network" autocomplete="off" class="pxn_input" />*/}
               </div>
             </div>
           </div>
@@ -146,6 +150,7 @@ function AddBankPage() {
               backgroundColor: "rgb(9, 54, 135)",
               width: "100%",
             }}
+            type="submit"
           >
             Confirm
           </Button>

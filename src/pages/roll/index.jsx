@@ -78,7 +78,7 @@ function RollPage() {
   };
 
   const handleDisableButton = () => {
-    if (userData?.is_active === false) {
+    if (!userData?.is_active) {
       return true;
     }
     if (userData?.remaining_tasks === 0) {
@@ -175,7 +175,7 @@ function RollPage() {
             <div className="col-6 col-md-5 col-lg-3">
               <button
                 className="spin-button"
-                disabled={() => handleDisableButton()}
+                disabled={handleDisableButton()}
                 onClick={spinImages}
               >
                 Start Grab

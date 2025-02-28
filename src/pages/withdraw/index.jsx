@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Toolbar } from "@mui/material";
 
 import { useNavigate } from "react-router-dom";
@@ -8,8 +8,10 @@ import BackdropComponent from "../../components/BackdropComponent";
 
 import "./withdraw.css";
 import TopbarWithWhiteBackground from "../../components/TopbarWithWhiteBackground";
+import { UseAppContext } from "../../context/AppContext";
 
 function WithDrawPage() {
+  const { userData, fetchUserDetails } = UseAppContext();
   const navigate = useNavigate();
 
   const [openBackdrop, setOpenBackdrop] = useState(false);
@@ -17,6 +19,11 @@ function WithDrawPage() {
   const handleNavigate = (link) => {
     navigate(link);
   };
+  useEffect(() => {
+    if (!userData) {
+      fetchUserDetails();
+    }
+  }, []);
   return (
     <Box>
       <TopbarWithWhiteBackground title="Withdraw" />
@@ -63,7 +70,7 @@ function WithDrawPage() {
               id="withdrawType"
               style={{ color: "rgb(118, 118, 118)" }}
             >
-              Bank Alfalah
+              {userData?.bank_info?.bank_name}
             </span>
           </div>
           <div className="depositText">
