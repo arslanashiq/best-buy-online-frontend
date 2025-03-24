@@ -3,6 +3,8 @@ import { useEffect, useMemo, useState } from "react";
 import Footer from "../../components/footer/Footer";
 import Topbar from "../../components/Topbar";
 
+//icons
+import CloseIcon from "@mui/icons-material/Close";
 //styles
 import "./roll.css";
 import SpinnerImages from "./components/SpinnerImages";
@@ -14,7 +16,6 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { Close } from "@mui/icons-material";
 import { UseAppContext } from "../../context/AppContext";
 import { update_balance, update_remaining_task_count } from "../../DAL/user";
 import { USER_PRIZE_LIST } from "./utilities/constant";
@@ -30,18 +31,25 @@ function RollPage() {
     "https://bestbuyonlines.com/public/NorthernStar/dist/grab/663136503553b1714501200.jpg",
   ];
 
-  const [openModal, setOpenModal] = useState(false);
+  const [openCommissionModal, setOpenCommissionModal] = useState(false);
+  const [openValidationModal, setOpenValidationModal] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
 
   const selectedPrize = useMemo(() => {
     const randomNumber = Math.floor(Math.random() * USER_PRIZE_LIST.length);
-    const commission = Math.floor(Math.random() * (50 - 5 + 1)) + 5;
+    let prize = USER_PRIZE_LIST[randomNumber];
+    if (userData?.greater_task_number === userData?.remaining_tasks) {
+      prize = {
+        ...prize,
+        price: Number(userData?.balance_amount) + 100,
+      };
+    }
 
-    return { ...USER_PRIZE_LIST[randomNumber], commission };
-  }, [USER_PRIZE_LIST, userData?.remaining_tasks]);
+    return { ...prize };
+  }, [USER_PRIZE_LIST, userData]);
 
-  const handleCloseModal = () => {
-    setOpenModal(false);
+  const handleCloseCommissionModal = () => {
+    setOpenCommissionModal(false);
   };
 
   function spinImages() {
@@ -60,28 +68,38 @@ function RollPage() {
           imagesList[randomNumber];
       }, 3000);
       setTimeout(() => {
-        setOpenModal(true);
+        setOpenCommissionModal(true);
       }, 5000);
     });
   }
+
   const handleClickProcessing = async () => {
     setIsProcessing(true);
-    update_balance(userData?._id, {
-      balance_amount:
-        Number(userData?.balance_amount || 0) +
-        Number(selectedPrize.commission),
-    }).then((response) => {
+    if (Number(userData?.balance_amount) >= Number(selectedPrize?.price)) {
+      update_balance(userData?._id, {
+        balance_amount:
+          Number(userData?.balance_amount || 0) +
+          Number(selectedPrize.commission),
+      }).then((response) => {
+        setIsProcessing(false);
+        handleCloseCommissionModal();
+        updateUserDetails(response?.data);
+      });
+    } else {
       setIsProcessing(false);
-      handleCloseModal();
-      updateUserDetails(response?.data);
-    });
+      setOpenValidationModal(true);
+    }
   };
+  console.log(userData);
 
   const handleDisableButton = () => {
     if (!userData?.is_active) {
       return true;
     }
     if (userData?.remaining_tasks === 0) {
+      return true;
+    }
+    if (Number(userData?.balance_amount) === 0) {
       return true;
     }
     return false;
@@ -94,12 +112,18 @@ function RollPage() {
   return (
     <div className="container-fluid">
       <Dialog
-        open={openModal}
+        open={openCommissionModal}
         // onClose={handleCloseModal}
         maxWidth="md"
         fullWidth
       >
-        <Stack p={1} sx={{ backgroundColor: "#a5e296" }}>
+        <Stack p={1} sx={{ backgroundColor: "#a5e296", position: "relative" }}>
+          <IconButton
+            onClick={handleCloseCommissionModal}
+            sx={{ position: "absolute", top: 10, right: 10 }}
+          >
+            <CloseIcon />
+          </IconButton>
           <div className="modal-title text-center fw-bold">
             Order Grabing Success
           </div>
@@ -114,7 +138,7 @@ function RollPage() {
             <Stack spacing={1}>
               <div>
                 <h2>{selectedPrize?.name}</h2>
-                <p>Price: ${selectedPrize.price}</p>
+                <p>Price: ${selectedPrize?.price}</p>
                 <p>Quantity: {selectedPrize.quantity}X</p>
               </div>
               <div
@@ -134,7 +158,7 @@ function RollPage() {
             <Button
               variant="contained"
               sx={{ backgroundColor: "white", color: "black" }}
-              className="text-capitalize fw-bold"
+              className="text-capitalize fw-bold mt-2"
               onClick={handleClickProcessing}
             >
               {isProcessing ? "processing..." : "Received Now"}
@@ -142,6 +166,43 @@ function RollPage() {
           </Stack>
         </Stack>
       </Dialog>
+      <Dialog open={openValidationModal} maxWidth="sm" fullWidth>
+        <Stack p={1} sx={{ backgroundColor: "white", position: "relative" }}>
+          <IconButton
+            onClick={() => setOpenValidationModal(false)}
+            sx={{ position: "absolute", top: 10, right: 10 }}
+          >
+            <CloseIcon />
+          </IconButton>
+          <div className="modal-title text-center fw-bold">
+            Insufficient Balance
+          </div>
+          <Stack direction="row" justifyContent="center" alignItems="center">
+            <Stack spacing={1} justifyContent="center" alignItems="center">
+              <Typography>
+                you do not have sufficient balance to recieve this commission.
+                please contact customer support
+              </Typography>
+              <Button
+                variant="contained"
+                className=" fw-bold text-capitalize"
+                color="primary"
+                sx={{
+                  borderRadius: 2,
+
+                  color: "white",
+                }}
+                onClick={() => {
+                  window.open("https://t.me/ShahadCh767", "blank");
+                }}
+              >
+                Customer Service
+              </Button>
+            </Stack>
+          </Stack>
+        </Stack>
+      </Dialog>
+
       <div className="row">
         <Topbar />
         <div className="scroll-container">

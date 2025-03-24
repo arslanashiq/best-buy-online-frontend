@@ -1,33 +1,35 @@
 import mackbookImg from "../../../assets/macbook.png";
 import iphoneImg from "../../../assets/iphone.png";
+import appleWatch from "../../../assets/apple-watch.png";
+import samsungPhone from "../../../assets/samsung-s24-ultra.png";
 
 export const USER_PRIZE_LIST = [
   {
-    image: "https://bestbuyonlines.com/public/upload/product/1737556732YcS.png",
-    name: "CD 70",
-    price: "630.00",
+    image: appleWatch,
+    name: "Apple Watch",
+    price: "400.00",
     quantity: 1,
-    commission: "2.00",
+    commission: "1.00",
   },
   {
     image: iphoneImg,
     name: "Iphone 16",
-    price: "1200.00",
+    price: "800.00",
     quantity: 1,
-    commission: "10.00",
+    commission: "1.50",
   },
   {
     image: mackbookImg,
     name: "Macbook Pro",
-    price: "1600.00",
+    price: "1200.00",
     quantity: 1,
-    commission: "80.00",
+    commission: "1.50",
   },
   {
-    image: "https://bestbuyonlines.com/public/upload/product/1737556732YcS.png",
-    name: "CD 70",
-    price: "630.00",
-    quantity: 3,
-    commission: "6.00",
+    image: samsungPhone,
+    name: "Samsung S24 Ultra",
+    price: "1000.00",
+    quantity: 1,
+    commission: "1.00",
   },
 ];

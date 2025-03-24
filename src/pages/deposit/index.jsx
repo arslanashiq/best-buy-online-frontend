@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 import { Box, Toolbar } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 //components
 import TopbarWithWhiteBackground from "../../components/TopbarWithWhiteBackground";
 //styles
@@ -8,7 +8,7 @@ import "./deposit.css";
 import { useState } from "react";
 import BackdropComponent from "../../components/BackdropComponent";
 function DepositPage() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [amount, setAmount] = useState("");
   const [openBackdrop, setOpenBackdrop] = useState(false);
   const handleSelectAmount = (e) => {
@@ -19,9 +19,9 @@ function DepositPage() {
     e.target.setAttribute("active", "");
     setAmount(value);
   };
-  const handleNaigate = (link) => {
-    navigate(link);
-  };
+  // const handleNaigate = (link) => {
+  //   navigate(link);
+  // };
   const handleChangeAmount = (e) => {
     setAmount(e.target.value);
   };
@@ -42,7 +42,7 @@ function DepositPage() {
           </div>
           <div
             className="title__wrapper__item"
-            onClick={() => handleNaigate("/history")}
+            // onClick={() => handleNaigate("/history")}
           >
             <span>Top Up History</span>
           </div>

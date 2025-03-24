@@ -1,23 +1,42 @@
-/* eslint-disable react/no-unknown-property */
-
 import { useEffect, useState } from "react";
 import { Box, Toolbar } from "@mui/material";
+import { enqueueSnackbar } from "notistack";
 
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import BackdropComponent from "../../components/BackdropComponent";
 
 import "./withdraw.css";
 import TopbarWithWhiteBackground from "../../components/TopbarWithWhiteBackground";
 import { UseAppContext } from "../../context/AppContext";
+import { withdraw_amount } from "../../DAL/user";
 
 function WithDrawPage() {
-  const { userData, fetchUserDetails } = UseAppContext();
-  const navigate = useNavigate();
+  const { userData, fetchUserDetails, updateUserDetails } = UseAppContext();
+  // const navigate = useNavigate();
 
   const [openBackdrop, setOpenBackdrop] = useState(false);
+  const [inputs, setinputs] = useState({ amount: 0, withdrawl_passowrd: "" });
+  const [isProcessing, setIsProcessing] = useState(false);
 
-  const handleNavigate = (link) => {
-    navigate(link);
+  // const handleNavigate = (link) => {
+  //   navigate(link);
+  // };
+  const handleClickProcessing = async () => {
+    setIsProcessing(true);
+    try {
+      withdraw_amount(userData?._id, {
+        amount: Number(inputs?.amount),
+        withdrawl_passowrd: inputs?.withdrawl_passowrd,
+      }).then((response) => {
+        setIsProcessing(false);
+        updateUserDetails(response?.data);
+        if (response?.data) {
+          enqueueSnackbar("Withdrawl Successfull",{variant:'errorF'});
+        }
+      });
+    } finally {
+      setIsProcessing(false);
+    }
   };
   useEffect(() => {
     if (!userData) {
@@ -41,12 +60,12 @@ function WithDrawPage() {
       {/* 标签栏 */}
       <div className="list_title">
         <div className="title__wrapper__nav">
-          <div className="title__wrapper__item" active="">
+          <div className="title__wrapper__item">
             <span>Withdraw Now</span>
           </div>
           <div
             className="title__wrapper__item"
-            onClick={() => handleNavigate("/history")}
+            // onClick={() => handleNavigate("/history")}
           >
             <span>Withdraw History</span>
           </div>
@@ -54,7 +73,9 @@ function WithDrawPage() {
       </div>
       <div className="backTop">
         <div style={{ fontSize: 10 }}>Account Balance</div>
-        <div style={{ fontSize: 16, fontWeight: 700 }}>$20324</div>
+        <div style={{ fontSize: 16, fontWeight: 700 }}>
+          ${userData?.balance_amount}
+        </div>
       </div>
       <div className="page_box">
         <div className="DepositAmount">Withdrawal Method</div>
@@ -78,18 +99,32 @@ function WithDrawPage() {
             <input
               type="number"
               name="amount"
+              value={inputs.amount}
+              onChange={(e) => {
+                setinputs({ ...inputs, amount: e.target.value });
+              }}
               defaultValue=""
               placeholder="Enter the Withdrawal Amount"
               autoComplete="off"
               className="input_box withdraw_money"
             />
-            <div className="input_all">All</div>
+            <div
+              className="input_all cursor-pointer"
+              onClick={() => {
+                setinputs({ ...inputs, amount: userData?.balance_amount });
+              }}
+            >
+              All
+            </div>
           </div>
           <div className="depositText">
             <div className="lebal">Withdraw Password</div>
             <input
               type="password"
-              name="password"
+              name="withdrawl_passowrd"
+              onChange={(e) => {
+                setinputs({ ...inputs, withdrawl_passowrd: e?.target?.value });
+              }}
               defaultValue=""
               placeholder="Type Here"
               autoComplete="off"
@@ -98,7 +133,11 @@ function WithDrawPage() {
           </div>
         </div>
         <div className="recharge_btn">
-          <button className="btn_submit bottomButton depositSub">
+          <button
+            className="btn_submit bottomButton depositSub"
+            disabled={isProcessing}
+            onClick={handleClickProcessing}
+          >
             Confirm
           </button>
           <button

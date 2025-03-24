@@ -13,7 +13,7 @@ import "./profile.css";
 import { logout_user } from "../../DAL/auth";
 
 function ProfilePage() {
-  const { userData, fetchUserDetails } = UseAppContext();
+  const { userData, fetchUserDetails, setUserData } = UseAppContext();
   const navigate = useNavigate();
 
   const [openBackdrop, setOpenBackdrop] = useState(false);
@@ -25,6 +25,7 @@ function ProfilePage() {
   const handleLogout = async () => {
     handleNavigate("/login");
     localStorage.clear();
+    setUserData(null);
     logout_user();
   };
 

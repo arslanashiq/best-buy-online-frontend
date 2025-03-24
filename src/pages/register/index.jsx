@@ -27,6 +27,7 @@ function RegisterPage() {
     login_password: "",
     withdrawl_passowrd: "",
   });
+  const [invitationCode, setInvitationCode] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showWithDrawlPassword, setShowWithDrawlPassword] = useState(false);
   const handleChangeInput = (e) => {
@@ -38,6 +39,9 @@ function RegisterPage() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (invitationCode !== "92837465") {
+      return enqueueSnackbar("Invalid Invitation Code ", { variant: "error" });
+    }
     add_user(inputs)
       .then((response) => {
         if (response?.code === 201) {
@@ -147,7 +151,7 @@ function RegisterPage() {
                           }}
                         />
                       </div>
-                      <div className="col-12 mt-4 mb-5">
+                      <div className="col-12 mt-4 ">
                         <TextField
                           variant="standard"
                           type={showWithDrawlPassword ? "text" : "password"}
@@ -180,17 +184,19 @@ function RegisterPage() {
                           }}
                         />
                       </div>
-                      {/* <div className="col-12 mt-2">
+                      <div className="col-12 mt-4 mb-5">
                         <TextField
                           className="w-100"
                           variant="standard"
                           placeholder="Invite Code"
                           name="invite_code"
-                          autoComplete="off"
-                          value={inputs.invite_code}
-                          onChange={handleChangeInput}
+                          type="number"
+                          value={invitationCode}
+                          onChange={(e) => {
+                            setInvitationCode(e.target.value);
+                          }}
                         />
-                      </div> */}
+                      </div>
 
                       <button
                         className="border border-none"

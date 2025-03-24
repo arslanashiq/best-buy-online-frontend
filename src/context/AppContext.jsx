@@ -28,6 +28,7 @@ export const AppContext = ({ children }) => {
     //functions
     fetchUserDetails,
     updateUserDetails,
+    setUserData,
   };
 
   return (
