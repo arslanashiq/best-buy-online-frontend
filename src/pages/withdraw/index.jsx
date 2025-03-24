@@ -27,15 +27,20 @@ function WithDrawPage() {
       withdraw_amount(userData?._id, {
         amount: Number(inputs?.amount),
         withdrawl_passowrd: inputs?.withdrawl_passowrd,
-      }).then((response) => {
-        setIsProcessing(false);
-        updateUserDetails(response?.data);
-        if (response?.data) {
-          enqueueSnackbar("Withdrawl Successfull", { variant: "success" });
-        } else {
-          enqueueSnackbar("Invalid Password", { variant: "error" });
-        }
-      });
+      })
+        .then((response) => {
+          setIsProcessing(false);
+          updateUserDetails(response?.data);
+          console.log(response?.data);
+          if (response?.data) {
+            enqueueSnackbar("Withdrawl Successfull", { variant: "success" });
+          }
+        })
+        .catch((e) => {
+          enqueueSnackbar(e.message, { variant: "error" });
+        });
+    } catch (e) {
+      enqueueSnackbar(e.message, { variant: "error" });
     } finally {
       setIsProcessing(false);
     }
