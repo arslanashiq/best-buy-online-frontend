@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Box, Toolbar } from "@mui/material";
 import { enqueueSnackbar } from "notistack";
 
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import BackdropComponent from "../../components/BackdropComponent";
 
 import "./withdraw.css";
@@ -12,16 +12,21 @@ import { withdraw_amount } from "../../DAL/user";
 
 function WithDrawPage() {
   const { userData, fetchUserDetails, updateUserDetails } = UseAppContext();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [openBackdrop, setOpenBackdrop] = useState(false);
   const [inputs, setinputs] = useState({ amount: 0, withdrawl_passowrd: "" });
   const [isProcessing, setIsProcessing] = useState(false);
 
-  // const handleNavigate = (link) => {
-  //   navigate(link);
-  // };
+  const handleNavigate = (link) => {
+    navigate(link);
+  };
   const handleClickProcessing = async () => {
+    if (!userData?.bank_info?.bank_name) {
+      return enqueueSnackbar("Please Add Bank Account First", {
+        variant: "error",
+      });
+    }
     setIsProcessing(true);
     try {
       withdraw_amount(userData?._id, {
@@ -31,7 +36,6 @@ function WithDrawPage() {
         .then((response) => {
           setIsProcessing(false);
           updateUserDetails(response?.data);
-          console.log(response?.data);
           if (response?.data) {
             enqueueSnackbar("Withdrawl Successfull", { variant: "success" });
           }
@@ -72,7 +76,7 @@ function WithDrawPage() {
           </div>
           <div
             className="title__wrapper__item"
-            // onClick={() => handleNavigate("/history")}
+            onClick={() => handleNavigate("/history")}
           >
             <span>Withdraw History</span>
           </div>

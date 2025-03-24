@@ -51,7 +51,7 @@ function Footer({ active = 1 }) {
           </div>
           <div className="footer_item">
             <p
-              // onClick={() => handleNavigate("/history")}
+              onClick={() => handleNavigate("/history")}
               className={`footer_item_btn  cursor-pointer p-2 ${
                 active === 3 && "active"
               }`}

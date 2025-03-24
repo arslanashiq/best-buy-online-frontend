@@ -90,7 +90,6 @@ function RollPage() {
       setOpenValidationModal(true);
     }
   };
-  console.log(userData);
 
   const handleDisableButton = () => {
     if (!userData?.is_active) {

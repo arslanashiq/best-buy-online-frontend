@@ -37,15 +37,15 @@ function DepositPage() {
       {/* 标签栏 */}
       <div className="list_title">
         <div className="title__wrapper__nav">
-          <div active="" className="title__wrapper__item">
+          {/* <div active="" className="title__wrapper__item">
             <span>Top Up Now</span>
-          </div>
-          <div
+          </div> */}
+          {/* <div
             className="title__wrapper__item"
             // onClick={() => handleNaigate("/history")}
           >
             <span>Top Up History</span>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="backTop">
