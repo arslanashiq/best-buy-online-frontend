@@ -193,7 +193,7 @@ function RollPage() {
                   color: "white",
                 }}
                 onClick={() => {
-                  window.open("https://t.me/ShahadCh767", "blank");
+                  window.open("https://t.me/BestbuyCustomerService1", "blank");
                 }}
               >
                 Customer Service

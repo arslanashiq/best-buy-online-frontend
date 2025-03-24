@@ -26,7 +26,7 @@ function BackdropComponent({ openBackdrop, setOpenBackdrop }) {
             className="w-100 fw-bold text-capitalize"
             sx={{ borderRadius: 2, color: "black", backgroundColor: "white" }}
             onClick={() => {
-              window.open("https://t.me/ShahadCh767", "blank");
+              window.open("https://t.me/BestbuyCustomerService1", "blank");
             }}
           >
             Customer Service 1
@@ -36,7 +36,7 @@ function BackdropComponent({ openBackdrop, setOpenBackdrop }) {
             className="w-100 fw-bold text-capitalize"
             sx={{ borderRadius: 2, color: "black", backgroundColor: "white" }}
             onClick={() => {
-              window.open("https://t.me/ShahadCh767", "blank");
+              window.open("https://t.me/BestbuyCustomerService1", "blank");
             }}
           >
             Customer Service 2

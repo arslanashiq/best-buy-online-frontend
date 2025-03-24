@@ -31,7 +31,9 @@ function WithDrawPage() {
         setIsProcessing(false);
         updateUserDetails(response?.data);
         if (response?.data) {
-          enqueueSnackbar("Withdrawl Successfull",{variant:'errorF'});
+          enqueueSnackbar("Withdrawl Successfull", { variant: "success" });
+        } else {
+          enqueueSnackbar("Invalid Password", { variant: "error" });
         }
       });
     } finally {
